@@ -39,6 +39,24 @@
         ],
 
     ];
+     
+    // Filtra gli hotel in base al parcheggio
+    $filteredHotels = $hotels;
+    if (isset($_GET['filter_parking'])) { 
+        $filterParking = $_GET['filter_parking'];
+        if ($filterParking === 'with-parking') {
+            $filteredHotels = array_filter($hotels, function ($hotel) {
+                return $hotel['parking'] == true;
+            });
+        } elseif ($filterParking === 'no-parking') {
+            $filteredHotels = array_filter($hotels, function ($hotel) {
+                return $hotel['parking'] == false;
+            });
+        }
+    }
+
+    // Filtra gli hotel in base al voto
+
 
 ?>
 
@@ -52,10 +70,29 @@
     
 </head>
 <body>
-    
-
-    <div class="container mt-5">
+    <div class="container mt-5">        
         <h1>Lista Hotel</h1>
+        <div class="d-flex">
+            <!-- Filtra per parcheggio: -->
+            <form action="" method="get" class="mt-3">
+                <div class="form-group">
+                    <label for="filter_parking">Filtra per parcheggio:</label>
+                    <select class="form-control" id="filter_parking" name="filter_parking">
+                        <option value="">Tutti</option>
+                        <option value="with-parking">Con parcheggio</option>
+                        <option value="no-parking">Senza parcheggio</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Filtra</button>
+            </form>
+
+            <!-- Filtra per voto: -->
+
+
+        </div>
+        
+
+        
         <table class="table table-bordered mt-5">
             <thead class="table-light">
                 <tr>
@@ -66,10 +103,9 @@
                     <th>Distanza dal Centro</th>
                 </tr>
             </thead>
-            
+
             <tbody>
-                <?php for ($i = 0; $i < count($hotels); $i++) {
-                $cur_hotel = $hotels[$i]; ?>
+                <?php foreach ($filteredHotels as $cur_hotel) { ?>
                     <tr>                
                         <td> <?php echo $cur_hotel['name']; ?></td>
                         <td> <?php echo $cur_hotel['description']; ?></td>
