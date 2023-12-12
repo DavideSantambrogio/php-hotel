@@ -48,28 +48,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">  
+    
 </head>
 <body>
-    <?php for ($i = 0; $i < count($hotels); $i++) {
-        $cur_hotel = $hotels[$i]; ?>
-        <div>
-            <h2>Nome: <?php echo $cur_hotel['name']; ?></h2>
-            <h3>Descrizione: <?php echo $cur_hotel['description']; ?></h3>
-            <h3>Parcheggio:<?php
-                    if ($cur_hotel['parking'] == true) {
-                        echo 'Parcheggio disponibile';
-                    } else {
-                        echo 'Parcheggio non disponibile';
-                    }
-                ?>
-            </h3>
-            <h3>Voto: <?php echo $cur_hotel['vote']; ?></p>
-            <h3>Distanza dal centro: <?php echo $cur_hotel['distance_to_center']; ?></h3>
-            
-            
-        </div>
-        <hr>
+    
 
-<?php } ?>
+    <div class="container mt-5">
+        <h1>Lista Hotel</h1>
+        <table class="table table-bordered mt-5">
+            <thead class="table-light">
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrizione</th>
+                    <th>Parcheggio</th>
+                    <th>Voto</th>
+                    <th>Distanza dal Centro</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <?php for ($i = 0; $i < count($hotels); $i++) {
+                $cur_hotel = $hotels[$i]; ?>
+                    <tr>                
+                        <td> <?php echo $cur_hotel['name']; ?></td>
+                        <td> <?php echo $cur_hotel['description']; ?></td>
+                        <td> 
+                            <?php
+                                if ($cur_hotel['parking'] == true) {
+                                    echo 'Parcheggio disponibile';
+                                } else {
+                                    echo 'Parcheggio non disponibile';
+                                }
+                            ?>
+                        </td>
+                        <td> <?php echo $cur_hotel['vote']; ?></p>
+                        <td> <?php echo $cur_hotel['distance_to_center']; ?> Km</td>
+                    </tr> 
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
